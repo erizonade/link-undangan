@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <title>Daftar Undangan Pernikahan</title>
+    <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
     <style>
       body {
         font-family: 'Segoe UI', sans-serif;
@@ -487,5 +490,18 @@
             window.open(waUrl, "_blank");
           }
     </script>
+    <!-- jQuery (required for DataTables) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<!-- Inisialisasi DataTables -->
+<script>
+  $(document).ready( function () {
+    $('#undanganTable').DataTable();
+  });
+</script>
+
   </body>
 </html>
