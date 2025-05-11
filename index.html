@@ -25,14 +25,18 @@
     }
     button {
       padding: 6px 12px;
+      margin-bottom: 4px;
       background-color: #28a745;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
+    button.share {
+      background-color: #25D366;
+    }
     button:hover {
-      background-color: #218838;
+      opacity: 0.9;
     }
     .link {
       word-break: break-word;
@@ -49,8 +53,9 @@
       <tr>
         <th>No</th>
         <th>Nama Tamu</th>
+        <th>Nomor HP</th>
         <th>Link Undangan</th>
-        <th>Salin Isi</th>
+        <th>Aksi</th>
       </tr>
     </thead>
     <tbody>
@@ -60,9 +65,9 @@
 
   <script>
     const tamuList = [
-      { "nama": "Ka Ezu & Istri" },
-      { "nama": "Bapak Riko & Keluarga" },
-      { "nama": "Ibu Lina" }
+      { "nama": "Ka Ezu & Istri", "hp": "6281234567890" },
+      { "nama": "Bapak Riko & Keluarga", "hp": "6289876543210" },
+      { "nama": "Ibu Lina", "hp": "6281122334455" }
     ];
 
     const baseUrl = "https://app.smstory.id/ririn-erizon";
@@ -113,8 +118,12 @@ Kami yang berbahagia,
       row.innerHTML = `
         <td>${index + 1}</td>
         <td>${tamu.nama}</td>
+        <td>${tamu.hp}</td>
         <td><a class="link" href="${link}" target="_blank">${link}</a></td>
-        <td><button onclick="copyToClipboard(\`${isiUndangan.replace(/`/g, '\\`')}\`)">Salin</button></td>
+        <td>
+          <button onclick="copyToClipboard(\`${isiUndangan.replace(/`/g, '\\`')}\`)">Salin</button><br>
+          <button class="share" onclick="shareViaWA('${tamu.hp}', \`${encodeURIComponent(isiUndangan)}\`)">Share via WhatsApp</button>
+        </td>
       `;
       tableBody.appendChild(row);
     });
@@ -123,6 +132,11 @@ Kami yang berbahagia,
       navigator.clipboard.writeText(text).then(() => {
         alert("Isi undangan berhasil disalin!");
       });
+    }
+
+    function shareViaWA(hp, pesanEncoded) {
+      const waUrl = `https://wa.me/${hp}?text=${pesanEncoded}`;
+      window.open(waUrl, "_blank");
     }
   </script>
 
