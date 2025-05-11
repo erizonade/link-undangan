@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Undangan Pernikahan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+      background: #f2f2f2;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    button {
+      padding: 6px 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .link {
+      word-break: break-word;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Daftar Undangan Pernikahan</h2>
+
+  <table id="undanganTable">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama Tamu</th>
+        <th>Link Undangan</th>
+        <th>Salin Isi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data akan dimasukkan lewat JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    const tamuList = [
+      { "nama": "Ka Ezu & Istri" },
+      { "nama": "Bapak Riko & Keluarga" },
+      { "nama": "Ibu Lina" }
+    ];
+
+    const baseUrl = "https://app.smstory.id/ririn-erizon";
+    const tableBody = document.querySelector("#undanganTable tbody");
+
+    tamuList.forEach((tamu, index) => {
+      const encodedName = encodeURIComponent(tamu.nama);
+      const link = `${baseUrl}?to=${encodedName}`;
+
+      const isiUndangan = `بِسْــــــــــــــمِ اللهِ الرَّحْمَنِ الرَّحِيْـــــم
+
+💐 UNDANGAN PERNIKAHAN 💐
+
+Kepada Yth:
+${tamu.nama}
+
+Segala puji bagi Allah SWT yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan ini kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami :
+
+*Ririn Eka Saputri, S.E*
+Putri pertama dari Bapak Jauhari Riswan & Ibu Siti Sundari 
+
+dengan
+
+*Erizon Ade Pratama, S.Kom*
+Putra pertama dari Bapak Farizan Mustewi & Ibu Ariana
+
+Insyaa Allah yang akan diselenggarakan pada:
+*06 Juli 2025*
+
+*🏢 Tempat Acara*
+Gedung Graha Damelinda Convention Hall,
+Jl. H. Abdul Rozak, 2 Ilir, Kec. Ilir Tim. II, Kota Palembang, Sumatera Selatan 30163
+
+Klik link berikut untuk Undangan Resmi
+[   ${link}  ]
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan do'a terbaiknya.
+
+Jazaakumullah Khairan Katsiran
+
+💌
+Wedding E-Invitation ini merupakan undangan resmi dari kami, karena jarak & waktu kami mohon maaf apabila mengirim undangan ini melalui media online. Semoga tidak mengurangi rasa hormat dan makna serta isinya.
+
+Kami yang berbahagia,
+*Ririn & Erizon*`;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${tamu.nama}</td>
+        <td><a class="link" href="${link}" target="_blank">${link}</a></td>
+        <td><button onclick="copyToClipboard(\`${isiUndangan.replace(/`/g, '\\`')}\`)">Salin</button></td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Isi undangan berhasil disalin!");
+      });
+    }
+  </script>
+
+</body>
+</html>
